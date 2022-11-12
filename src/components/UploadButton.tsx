@@ -1,3 +1,4 @@
+import { AttachmentIcon } from "@chakra-ui/icons"
 import { Box, Button } from "@chakra-ui/react"
 
 const UploadButton = () => {
@@ -5,7 +6,7 @@ const UploadButton = () => {
         <Box alignSelf="center">
             <form method="POST" action="/upload">
                 <input type="file" accept=".php"></input>
-                <Button>Upload PHP file</Button>
+                <Button leftIcon={<AttachmentIcon />}>Upload PHP file</Button>
             </form>
         </Box>
     )
