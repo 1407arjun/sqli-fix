@@ -15,14 +15,14 @@ const getQueryVars = (q: Query): QueryVar[] => {
                     .trim()
                 variable.type = "s"
                 variable.start = i - 1
-                variable.end = variable.start + variable.var.length
+                variable.end = variable.start + variable.var.length + 1
             } else if (query.substring(i - 1, i) === '"') {
                 variable.var = query
                     .substring(i, query.substring(i).indexOf('"') + i)
                     .trim()
                 variable.type = "s"
                 variable.start = i - 1
-                variable.end = variable.start + variable.var.length
+                variable.end = variable.start + variable.var.length + 1
             } else {
                 variable.var = query
                     .substring(i, query.substring(i).indexOf(" ") + i)
