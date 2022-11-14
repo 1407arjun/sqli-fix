@@ -1,16 +1,13 @@
 import Query from "../types/query"
+import QueryVar from "../types/query-var"
 
-const getQueryVars = (q: Query) => {
-    const vars = []
-    const { query, start, end } = q
+const getQueryVars = (q: Query): QueryVar[] => {
+    const vars: QueryVar[] = []
+    const { query } = q
+
     for (var i = 0; i < query.length - 1; i++) {
         if (query.substring(i, i + 1).startsWith("$")) {
-            const variable: {
-                var: string
-                type: string
-                start: number
-                end: number
-            } = { var: "", type: "", start: -1, end: -1 }
+            const variable: QueryVar = { var: "", type: "", start: -1, end: -1 }
 
             if (query.substring(i - 1, i) === "'") {
                 variable.var = query
@@ -37,6 +34,7 @@ const getQueryVars = (q: Query) => {
             vars.push(variable)
         }
     }
+
     return vars
 }
 

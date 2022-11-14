@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
+import getFix from "../../utils/getFix"
 import getQueries from "../../utils/getQueries"
 import getQueryVars from "../../utils/getQueryVars"
 
@@ -9,13 +10,16 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
         // Getting the queries from the file
         const queries = getQueries(split)
 
-        const queryVars = []
+        //const queryVars = []
         for (const q of queries) {
             // Getting variables used in the query
-            queryVars.push(getQueryVars(q))
+            const queryVars = getQueryVars(q)
+
+            // Getting corrected query
+            getFix(split, q, queryVars)
         }
         console.log(queries)
-        res.send(queryVars)
+        //res.send(queryVars)
     }
 }
 
