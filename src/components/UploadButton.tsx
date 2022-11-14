@@ -1,5 +1,5 @@
 import { AttachmentIcon } from "@chakra-ui/icons"
-import { Box, Button } from "@chakra-ui/react"
+import { Box, Button, Textarea } from "@chakra-ui/react"
 import { FormEvent, useState } from "react"
 
 const UploadButton = () => {
@@ -12,7 +12,7 @@ const UploadButton = () => {
 
         fileReader.readAsText(files[0], "UTF-8")
         fileReader.onload = (e) => {
-            const content = e.target!.result?.toString()
+            const content = e.target!.result?.toString().replace(/\r\n/g, "\n")
             if (content) setFile(content)
         }
     }
@@ -20,8 +20,7 @@ const UploadButton = () => {
     return (
         <Box alignSelf="center">
             <form method="POST" action="/api/upload">
-                <input
-                    type="text"
+                <Textarea
                     name="file"
                     value={file}
                     style={{ display: "none" }}
