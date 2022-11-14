@@ -4,7 +4,6 @@ import QueryVar from "../types/query-var"
 
 const getFix = (split: string[], q: Query, vars: QueryVar[]): Fix => {
     const { query, start, end } = q
-    console.log(start, end)
     const before = split.slice(start, end + 1).join(";") + ";"
 
     if (vars.length <= 0) {

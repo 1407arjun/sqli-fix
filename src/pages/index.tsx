@@ -25,7 +25,6 @@ const Home: NextPage = () => {
     const [fixes, setFixes] = useState<Fix[]>([])
 
     useEffect(() => {
-        console.log(1)
         const split: string[] = file.split(";")
 
         // Getting the queries from the file
@@ -37,9 +36,10 @@ const Home: NextPage = () => {
             const queryVars = getQueryVars(q)
 
             // Getting corrected query
-            newFixes.push(getFix(split, q, queryVars))
+            const fix = getFix(split, q, queryVars)
+            if (fix.before !== "" && fix.after !== "") newFixes.push(fix)
         }
-        console.log(newFixes)
+
         setFixes(newFixes)
     }, [file])
 
@@ -54,6 +54,9 @@ const Home: NextPage = () => {
                     <ColorToggle />
                 </HStack>
                 {file === "" && <UploadButton setFile={setFile} />}
+                {file !== "" && fixes.length === 0 && (
+                    <Heading size="lg">No SQLi vulnerabilities found!</Heading>
+                )}
                 {fixes.map((f, i) => {
                     return (
                         <VStack key={f.before} spacing={4}>
