@@ -1,11 +1,8 @@
+import Fix from "../types/fix"
 import Query from "../types/query"
 import QueryVar from "../types/query-var"
 
-const getFix = (
-    split: string[],
-    q: Query,
-    vars: QueryVar[]
-): { before: string; after: string } => {
+const getFix = (split: string[], q: Query, vars: QueryVar[]): Fix => {
     const { query, start, end } = q
     console.log(start, end)
     const before = split.slice(start, end + 1).join(";") + ";"
@@ -51,7 +48,7 @@ const getFix = (
         vars.map((v) => v.var).join(", ") +
         ");"
 
-    const after = ps + "\r\n" + stmt + "\r\n" + bind
+    const after = ps + "\r\n" + stmt + "\r\n" + bind + "\r\n$stmt->execute();"
 
     return {
         before,

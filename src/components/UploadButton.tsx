@@ -1,9 +1,13 @@
 import { AttachmentIcon } from "@chakra-ui/icons"
-import { Box, Button, Textarea } from "@chakra-ui/react"
-import { FormEvent, useState } from "react"
+import { Box, Button } from "@chakra-ui/react"
+import { Dispatch, FormEvent, SetStateAction, useRef } from "react"
 
-const UploadButton = () => {
-    const [file, setFile] = useState("")
+const UploadButton = ({
+    setFile
+}: {
+    setFile: Dispatch<SetStateAction<string>>
+}) => {
+    let fileRef = useRef<HTMLInputElement>()
 
     const readFile = (event: FormEvent<HTMLInputElement>) => {
         const fileReader = new FileReader()
@@ -19,21 +23,21 @@ const UploadButton = () => {
 
     return (
         <Box alignSelf="center">
-            <form method="POST" action="/api/upload">
-                <Textarea
-                    name="file"
-                    value={file}
-                    style={{ display: "none" }}
-                />
-                <input
-                    type="file"
-                    accept=".php"
-                    name="upload"
-                    onChange={readFile}></input>
-                <Button type="submit" leftIcon={<AttachmentIcon />}>
-                    Upload PHP file
-                </Button>
-            </form>
+            <input
+                //@ts-ignore
+                ref={fileRef}
+                type="file"
+                accept=".php"
+                onChange={readFile}
+                style={{ display: "none" }}></input>
+            <Button
+                type="submit"
+                onClick={() => {
+                    fileRef.current!.click()
+                }}
+                leftIcon={<AttachmentIcon />}>
+                Upload PHP file
+            </Button>
         </Box>
     )
 }
