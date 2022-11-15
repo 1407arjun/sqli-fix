@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                     <ColorToggle />
                 </HStack>
                 <form
-                    action="http://localhost:8888/sqli-fix/php/database.php"
+                    action="http://localhost:8888/sqli-fix/php/view.php"
                     method="GET"
                     style={{ width: "100%" }}>
                     <VStack spacing={4}>
